@@ -20,9 +20,7 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           # Применяем все конфиги из папки k8s/
-          kubectl apply -f ./k8s/ --namespace=default
+          kubectl apply -f ./deployments/k8s/ --namespace=sirius
           
           # Проверяем статус
-          kubectl get pods
-          kubectl get services
-          kubectl get ingress
+          kubectl -n sirius get all -o wide

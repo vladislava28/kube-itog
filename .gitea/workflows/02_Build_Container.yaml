@@ -23,7 +23,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./cmd/api-service
-          file: ./cmd/api-service/Dockerfile
+          file: ./api.Dockerfile
           push: true
           tags: |
             ${{ vars.DOCKER_USERNAME }}/${{ vars.REPO_OWNER }}-api:latest
@@ -33,7 +33,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./cmd/root-service
-          file: ./cmd/root-service/Dockerfile
+          file: ./root.Dockerfile
           push: true
           tags: |
             ${{ vars.DOCKER_USERNAME }}/${{ vars.REPO_OWNER }}-root:latest
@@ -43,7 +43,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./cmd/info-service
-          file: ./cmd/info-service/Dockerfile
+          file: ./info.Dockerfile
           push: true
           tags: |
             ${{ vars.DOCKER_USERNAME }}/${{ vars.REPO_OWNER }}-info:latest
@@ -53,7 +53,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./cmd/login-service
-          file: ./cmd/login-service/Dockerfile
+          file: ./login.Dockerfile
           push: true
           tags: |
             ${{ vars.DOCKER_USERNAME }}/${{ vars.REPO_OWNER }}-login:latest
