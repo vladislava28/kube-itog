@@ -20,10 +20,10 @@ tasks:
 
   build:
     cmds:
-         - docker build --pull --rm -f ./api.Dockerfile -t ${APP_IMAGE_OWNER}/${APP_IMAGE_NAME1}:latest .
-         - docker build --pull --rm -f ./info.Dockerfile -t ${APP_IMAGE_OWNER}/${APP_IMAGE_NAME2}:latest .
-         - docker build --pull --rm -f ./login.Dockerfile -t ${APP_IMAGE_OWNER}/${APP_IMAGE_NAME3}:latest .
-         - docker build --pull --rm -f ./root.Dockerfile -t ${APP_IMAGE_OWNER}/${APP_IMAGE_NAME4}:latest .
+      - docker build --pull --rm -f ./api.Dockerfile -t ${APP_IMAGE_OWNER}/${APP_IMAGE_NAME1}:latest .
+      - docker build --pull --rm -f ./info.Dockerfile -t ${APP_IMAGE_OWNER}/${APP_IMAGE_NAME2}:latest .
+      - docker build --pull --rm -f ./login.Dockerfile -t ${APP_IMAGE_OWNER}/${APP_IMAGE_NAME3}:latest .
+      - docker build --pull --rm -f ./root.Dockerfile -t ${APP_IMAGE_OWNER}/${APP_IMAGE_NAME4}:latest .
 
   push:
     cmds:
@@ -42,13 +42,23 @@ tasks:
 
   deploy:
     cmds: 
-    - kubectl apply -f ./deployments/config-env-api.yaml
-    - kubectl apply -f ./deployments/config-env-info.yaml
-    - kubectl apply -f ./deployments/config-env-login.yaml
-    - kubectl apply -f ./deployments/config-env-root.yaml
-    - kubectl apply -f ./deployments/k8s/deployments.yaml
-    - kubectl apply -f ./deployments/services.yaml 
-    - kubectl apply -f ./deployments/ingress.yaml
+      - kubectl apply -f ./deployments/config-env-api.yaml
+      - kubectl apply -f ./deployments/config-env-info.yaml
+      - kubectl apply -f ./deployments/config-env-login.yaml
+      - kubectl apply -f ./deployments/config-env-root.yaml
+      - kubectl apply -f ./deployments/k8s/deployments.yaml
+      - kubectl apply -f ./deployments/services.yaml 
+      - kubectl apply -f ./deployments/ingress.yaml
+  
+  uninstall:
+    cmds:
+      - kubectl delete -f ./deployments/config-env-api.yaml
+      - kubectl delete -f ./deployments/config-env-info.yaml
+      - kubectl delete -f ./deployments/config-env-login.yaml
+      - kubectl delete -f ./deployments/config-env-root.yaml
+      - kubectl delete -f ./deployments/k8s/deployments.yaml
+      - kubectl delete -f ./deployments/services.yaml 
+      - kubectl delete -f ./deployments/ingress.yaml
 
   release:
     cmds:

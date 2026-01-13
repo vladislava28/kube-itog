@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: appapi
-          image: ${APP_IMAGE_OWNER}/appapi:latest
+          image: vladica2007/appapi:latest
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -46,7 +46,7 @@ spec:
     spec:
       containers:
         - name: appinfo
-          image: ${APP_IMAGE_OWNER}/appinfo:latest
+          image: vladica2007/appinfo:latest
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -76,7 +76,7 @@ spec:
     spec:
       containers:
         - name: applogin
-          image: ${APP_IMAGE_OWNER}/applogin:latest
+          image: vladica2007/applogin:latest
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -108,7 +108,7 @@ spec:
     spec:
       containers:
         - name: approot
-          image: ${APP_IMAGE_OWNER}/approot:latest
+          image: vladica2007/approot:latest
           imagePullPolicy: IfNotPresent
           resources:
             requests:
