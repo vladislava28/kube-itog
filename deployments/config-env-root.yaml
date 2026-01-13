@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-app-env-root
+  namespace: sirius
+data:
+  ROOT_APP_NAME: "root"
+  ROOT_BIND_PORT: "7006"

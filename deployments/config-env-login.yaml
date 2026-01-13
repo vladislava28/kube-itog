@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-app-env-login
+  namespace: sirius
+data:
+  LOGIN_APP_NAME: "login"
+  LOGIN_BIND_PORT: "7005"

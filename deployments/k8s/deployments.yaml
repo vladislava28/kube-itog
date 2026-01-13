@@ -1,0 +1,122 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-api
+  namespace: sirius
+spec:
+  selector:
+    matchLabels:
+      app: myapp-api
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: myapp-api
+    spec:
+      containers:
+        - name: appapi
+          image: ${APP_IMAGE_OWNER}/appapi:latest
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          envFrom:
+            - configMapRef:
+                name: my-app-env-api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-info
+  namespace: sirius
+spec:
+  selector:
+    matchLabels:
+      app: myapp-info
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: myapp-info
+    spec:
+      containers:
+        - name: appinfo
+          image: ${APP_IMAGE_OWNER}/appinfo:latest
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          envFrom:
+            - configMapRef:
+                name: my-app-env-info
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-login
+  namespace: sirius
+spec:
+  selector:
+    matchLabels:
+      app: myapp-login
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: myapp-login
+    spec:
+      containers:
+        - name: applogin
+          image: ${APP_IMAGE_OWNER}/applogin:latest
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          envFrom:
+            - configMapRef:
+                name: my-app-env-login
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-root
+  namespace: sirius
+spec:
+  selector:
+    matchLabels:
+      app: myapp-root
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: myapp-root
+    spec:
+      containers:
+        - name: approot
+          image: ${APP_IMAGE_OWNER}/approot:latest
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          envFrom:
+            - configMapRef:
+                name: my-app-env-root

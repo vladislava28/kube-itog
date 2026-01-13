@@ -1,0 +1,60 @@
+name: "Build Container"
+run-name: "Build and Push Docker Container"
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-push:
+    runs-on: docker
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build and push API service
+        uses: docker/build-push-action@v5
+        with:
+          context: ./cmd/api-service
+          file: ./cmd/api-service/Dockerfile
+          push: true
+          tags: |
+            ${{ vars.DOCKER_USERNAME }}/${{ vars.REPO_OWNER }}-api:latest
+            ${{ vars.DOCKER_USERNAME }}/${{ vars.REPO_OWNER }}-api:${{ github.ref_name }}
+
+      - name: Build and push Root service
+        uses: docker/build-push-action@v5
+        with:
+          context: ./cmd/root-service
+          file: ./cmd/root-service/Dockerfile
+          push: true
+          tags: |
+            ${{ vars.DOCKER_USERNAME }}/${{ vars.REPO_OWNER }}-root:latest
+            ${{ vars.DOCKER_USERNAME }}/${{ vars.REPO_OWNER }}-root:${{ github.ref_name }}
+
+      - name: Build and push Info service
+        uses: docker/build-push-action@v5
+        with:
+          context: ./cmd/info-service
+          file: ./cmd/info-service/Dockerfile
+          push: true
+          tags: |
+            ${{ vars.DOCKER_USERNAME }}/${{ vars.REPO_OWNER }}-info:latest
+            ${{ vars.DOCKER_USERNAME }}/${{ vars.REPO_OWNER }}-info:${{ github.ref_name }}
+
+      - name: Build and push Login service
+        uses: docker/build-push-action@v5
+        with:
+          context: ./cmd/login-service
+          file: ./cmd/login-service/Dockerfile
+          push: true
+          tags: |
+            ${{ vars.DOCKER_USERNAME }}/${{ vars.REPO_OWNER }}-login:latest
+            ${{ vars.DOCKER_USERNAME }}/${{ vars.REPO_OWNER }}-login:${{ github.ref_name }}

@@ -1,0 +1,44 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  namespace: sirius
+  annotations:
+      traefik.ingress.Kubernetes.io/router.entrypoints: web
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: my.app.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: root-service-root
+            port:
+              number: 80
+
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: root-service-api
+            port:
+              number: 80
+              
+      - path: /info
+        pathType: Prefix
+        backend:
+          service:
+            name: root-service-info
+            port:
+              number: 80
+
+      - path: /login
+        pathType: Prefix
+        backend:
+          service:
+            name: root-service-login
+            port:
+              number: 80

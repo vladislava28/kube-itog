@@ -1,0 +1,28 @@
+name: "Deploy to Kubernetes"
+run-name: "Deploy application to Kubernetes"
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy:
+    runs-on: sirius
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up kubectl
+        uses: tale/kubectl-action@v1
+        with:
+          base64-kube-config: ${{ secrets.KUBE_CONFIG }}
+
+      - name: Deploy to Kubernetes
+        run: |
+          # Применяем все конфиги из папки k8s/
+          kubectl apply -f ./k8s/ --namespace=default
+          
+          # Проверяем статус
+          kubectl get pods
+          kubectl get services
+          kubectl get ingress
